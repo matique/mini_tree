@@ -1,0 +1,34 @@
+<style>
+.mini-tree {
+  xbackground: yellow;
+  .mini-tree-view, .nested {
+    list-style: none;
+    padding-left: 1rem;
+  }
+  .tree-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .toggle-btn {
+    background: transparent;
+    border: none;
+  }
+  .dragging { opacity: 0.5; }
+  .hidden { display: none; }
+  .toggle-btn, .toggle-space { width: 1rem; }
+  .tree-row:hover { background: rgba(0,0,0,0.05); }
+}
+</style>
+
+<%
+  list = locals[:list]
+  owner = list.first.class.name[0..-5]
+%>
+<div class="mini-tree" data-item-id="0"
+    data-controller="tree" data-tree-owner-value="<%= owner %>">
+  <ul class="mini-tree-view" data-tree-target="top">
+    <%= render partial: "mini_trees/item",
+      collection: list.where(parent_id: 0).order(:position)
+    %>
+  </ul>
+</div>

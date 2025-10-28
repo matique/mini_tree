@@ -1,0 +1,27 @@
+<%
+  icon = (item.collapsed ? "\u25b8" : "\u25be").html_safe
+  klass = item.collapsed ? "nested hidden" : "nested"
+%>
+
+<li class="tree-item" data-tree-target="item"
+    data-item-id="<%= item.id %>" draggable="true">
+  <div class="tree-row" data-action="click-&gt;tree#toggle">
+    <% if item.kind == "node" %>
+      <button class="toggle-btn" type="button"><%= icon %></button>
+    <% else %>
+      <span class="toggle-space"></span>
+    <% end %>
+    <span class="title">
+      <%= render partial: "mini_tree_title",
+          locals: {id: item.id, legend: item.legend}
+      %>
+    </span>
+  </div>
+
+  <% if item.kind == "node" %>
+    <ul class="<%= klass %>">
+      <%= render partial: "mini_trees/item", collection: item.children %>
+    </ul>
+  <% end %>
+
+</li>
