@@ -4,7 +4,7 @@ module MiniTree::Utils
   end
 
   def children
-    self.class.where(parent_id: self.id).order(:position)
+    self.class.where(parent_id: id).order(:position)
   end
 
   def to_s
@@ -14,9 +14,9 @@ module MiniTree::Utils
   module ClassMethods
     def refresh
       missing_cnt = delete_cnt = refresh_cnt = 0
-      owner_class = Kernel.const_get(self.name[0..-5])
+      owner_class = Kernel.const_get(name[0..-5])
       owner_ids = owner_class.all.pluck(:id)
-      ids = self.all.pluck(:id)
+      ids = all.pluck(:id)
 
       (owner_ids - ids).each { |id|
         legend = owner_class.find_by(id:).legend
@@ -56,7 +56,7 @@ module MiniTree::Utils
     end
 
     def print
-      puts "*** #{self.name}.all ***"
+      puts "*** #{name}.all ***"
       sorted.each_with_index { |item, index|
         puts "#{index}: #{item}"
       }

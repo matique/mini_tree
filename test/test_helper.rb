@@ -44,9 +44,9 @@ class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Minitest::Assertions
 
-#  # Reset sessions and driver between tests
-#  teardown do
-#    Capybara.reset_sessions!
-#    Capybara.use_default_driver
-#  end
+  # # Reset sessions and driver between tests
+  # teardown do
+  #   Capybara.reset_sessions!
+  #   Capybara.use_default_driver
+  # end
 end

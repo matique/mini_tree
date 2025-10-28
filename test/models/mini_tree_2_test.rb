@@ -30,7 +30,7 @@ class MiniTree2Test < ActiveSupport::TestCase
   end
 
   test "refresh; both same => refresh all" do
-    name = Name.create name: "NAME"
+    Name.create name: "NAME"
     name = Name.create name: "NAME"
     NameTree.destroy_all
     assert_equal [2, 0, 0], NameTree.refresh # create NameTrees
