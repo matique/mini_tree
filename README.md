@@ -153,10 +153,11 @@ into your own _app/javascript/controllers/_ directory.
 
 ## System dependencies
 
-This software has been developed and tested
-on Ubuntu 24.04
-using Ruby 3.4.7
-and Rails 8.0.3.
+This software has been developed and tested with:
+- Ubuntu 24.04
+- Ruby 3.4.7
+- Rails 8.1.0
+
 No particular system dependency is known,
 i.e. *mini_tree* should run on other systems as well.
 
