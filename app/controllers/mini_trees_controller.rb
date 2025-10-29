@@ -19,7 +19,7 @@ class MiniTreesController < ApplicationController
       row = @tree.find_by(id: value.to_i)
       row.update! kind: "leaf"
     when "toggle"
-      id = params[:id].to_i
+      id = id.to_i
       row = @tree.find_by(id:)
       row.update! collapsed: value
     else
