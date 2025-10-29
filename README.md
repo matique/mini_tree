@@ -18,12 +18,13 @@ to trigger actions.
 
 _MiniTree_ requires just a basic Rails system.
 Specifically, besides Stimulus no other Javascript package
-(e.g. jQuery) is expected.
+(i.e jQuery) is expected.
 Configuration is absent.
 
 _MiniTree_ includes a javascript component to handle
 the view on the client side
 as well as code for the server side.
+
 
 ## Prerequisites
 
@@ -31,44 +32,61 @@ Some preparation for the usage is required:
 - an additional database table storing the tree structure
 - a _legend_ method in the model
 - a call to _MiniTree_ to initialize the tree structure
-- calls in the model to _miniTree_ during creation and deletion of an item
+- calls in the model to _miniTree_ during creation, update
+  and deletion of an item
 
 ~~~Ruby
 # ./app/models/<model>.rb
-
 class <model> < ApplicationRecord
-  def legend = "#{name} #{id}"
+  def legend = "#{name} #{id}"   # an example
 end
 
 # ./app/models/<model>_tree.rb
-
 class <model>Tree < ApplicationRecord
   include MiniTree::Utils
 end
 
 # ./db/migrate/<nnn>_create_<model>_trees.rb
+class Create<Model>Trees < ActiveRecord::Migration[8.0]
+  def change
+    create_table :<model>_trees do |t|
+      t.string :legend
+      t.integer :parent_id, index: true
+      t.integer :position, null: false, default: 0
+      t.boolean :collapsed, default: false
+      t.string :kind
 
-class Create<Model>Trees < ActiveRecord::Migration[8.0]                         ‚
-  def change                                                                 ‚
-    create_table :<model>_trees do |t|                                          ‚
-      t.string :legend                                                       ‚
-      t.integer :parent_id, index: true                                      ‚
-      t.integer :position, null: false, default: 0                           ‚
-      t.boolean :collapsed, default: false                                   ‚
-      t.string :kind                                                         ‚
-                                                                             ‚
-      t.timestamps                                                           ‚
-    end                                                                      ‚
-    # add_foreign_key :items, :items, column: :parent_id                     ‚
-  end                                                                        ‚
-end                                                                          ‚
+      t.timestamps
+    end
+    # add_foreign_key :items, :items, column: :parent_id
+  end
+end
 ~~~
 
-/ yours in ./app/views/mini_trees/_mini_tree_title.html.erb
+You may specify your view of an item in the treeview:
+~~~Ruby
+# ./app/views/mini_trees/_mini_tree_title.html.erb
+# id and legend are defined
+<%= link_to "action", edit_<model>(id:), class: 'button' %>
+<%= legend %>
+~~~
+
+## Refresh
+
+~~~Ruby
+<Model>Tree.refresh
+<Model>Tree.refresh_item(<id>, <legend>)
+<Model>Tree.create_item(<id>, <legend>)
+<Model>Tree.del_item(<id>)
+~~~
 
 ## Usage
 
-
+~~~Ruby
+# Examp√le
+<% list = <Model>Tree.all %>
+<%= render "mini_trees/index", locals: {list:} %>
+~~~
 
 
 ## Installation
@@ -88,6 +106,7 @@ Furthermore, copy manually *app/javascript/controllers/tree_controller.js*
 from the _gem  mini-tree_
 into your own _app/javascript/controllers/_ directory.
 
+
 ## System dependencies
 
 This software has been developed and tested with:
@@ -101,12 +120,14 @@ See also:
 No particular system dependency is known,
 i.e. _mini_tree_ is expected to run on other systems without trouble.
 
+
 ## Curious
 
 There are quite a lot of TreeViews available.
-If you are curious you may search for:
+If you are curious you may search in particular for:
 - jqTree
 - sortableJS
+
 
 ## License
 
@@ -117,55 +138,10 @@ released as open source under the terms of the
 
 
 
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Configuration
-
-* Database creation
-
 * Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
 
 Short description and motivation.
 
 ## Usage
 How to use my plugin.
-
-...
-## Contributing
-Contribution directions go here.
-
-# README
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
