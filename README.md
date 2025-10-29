@@ -83,7 +83,7 @@ You may specify your view of an item in the treeview:
 ## Usage
 
 ~~~Ruby
-# Examp√le
+# Example
 <% list = <Model>Tree.all %>
 <%= render "mini_trees/index", locals: {list:} %>
 ~~~
@@ -134,14 +134,3 @@ If you are curious you may search in particular for:
 Copyright (c) 2025 Dittmar Krall (www.matiq.com),
 released as open source under the terms of the
 [MIT license](https://opensource.org/licenses/MIT).
-
-
-
-
-* Database initialization
-
-
-Short description and motivation.
-
-## Usage
-How to use my plugin.
