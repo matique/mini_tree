@@ -1,5 +1,5 @@
 <%
-  icon = (item.collapsed ? "\u25b8" : "\u25be").html_safe
+  icon = (item.collapsed ? "\u25ba" : "\u25bc").html_safe
   klass = item.collapsed ? "nested hidden" : "nested"
 %>
 
@@ -7,7 +7,7 @@
     data-item-id="<%= item.id %>" draggable="true">
   <div class="tree-row" data-action="click-&gt;tree#toggle">
     <% if item.kind == "node" %>
-      <button class="toggle-btn" type="button"><%= icon %></button>
+      <a class="toggle-btn" type="button"><%= icon %></a>
     <% else %>
       <span class="toggle-space"></span>
     <% end %>
@@ -23,5 +23,4 @@
       <%= render partial: "mini_trees/item", collection: item.children %>
     </ul>
   <% end %>
-
 </li>

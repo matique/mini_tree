@@ -2,14 +2,12 @@ require "test_helper"
 
 # mainly testing refresh
 class MiniTree2Test < ActiveSupport::TestCase
-  def setup
-    @node = a_node
-    @leaf = a_leaf
-  end
+  let(:node) { a_node }
+  let(:leaf) { a_leaf }
 
   test "the truth" do
-    assert_kind_of NameTree, @leaf
-    assert_kind_of NameTree, @node
+    assert_kind_of NameTree, leaf
+    assert_kind_of NameTree, node
   end
 
   test "refresh; owner empty => delete all" do
@@ -40,10 +38,18 @@ class MiniTree2Test < ActiveSupport::TestCase
   end
 
   test "children" do
-    assert @node.children.empty?
-    assert @leaf.children.empty?
-    @leaf.update! parent_id: @node.id
-    refute @node.children.empty?
-    assert @leaf.children.empty?
+    assert node.children.empty?
+    assert leaf.children.empty?
+    leaf.update! parent_id: node.id
+    refute node.children.empty?
+    assert leaf.children.empty?
+  end
+
+  test "ancestors" do
+    assert_equal [leaf.id], NameTree.ancestors(leaf.id)
+    assert_equal [node.id], NameTree.ancestors(node.id)
+
+    leaf2 = a_leaf node
+    assert_equal [node.id, leaf2.id], NameTree.ancestors(leaf2.id)
   end
 end

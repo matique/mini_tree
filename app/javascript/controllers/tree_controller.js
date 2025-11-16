@@ -5,8 +5,8 @@ export default class extends Controller {
   static values = {owner: String}
 
   connect() {
-    this.expanded = "\u25BE" // down triangle
-    this.collapsed = "\u25b8" // right triangle
+    this.expanded = "\u25BC" // down triangle
+    this.collapsed = "\u25bA" // right triangle
     this.itemTargets.forEach(item => this.attach(item))
   }
 
@@ -94,8 +94,9 @@ export default class extends Controller {
 
   toNode(elem) {
     var row = elem.firstElementChild
-    const newRow = this.create("button", {className: "toggle-btn",
-      type: "button", textContent: this.expanded})
+    const newRow = this.create("a", {className: "toggle-btn",
+      textContent: this.expanded})
+    //  type: "button", textContent: this.expanded})
 
     this.removeUl(elem)
     const ulRow2 = this.create("ul", {className: "nested"})

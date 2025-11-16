@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION
-
 # MiniTree
 
 [![Gem Version](https://img.shields.io/gem/v/mini_tree?color=168AFE&logo=rubygems&logoColor=FE1616)](https://rubygems.org/gems/mini_tree)
@@ -65,7 +63,7 @@ end
 
 You may specify your view of an item in the treeview:
 ~~~Ruby
-# ./app/views/mini_trees/_mini_tree_title.html.erb
+# ./app/views/application/_mini_tree_title.html.erb
 # id and legend are defined
 <%= link_to "action", edit_<model>(id:), class: 'button' %>
 <%= legend %>
@@ -75,9 +73,9 @@ You may specify your view of an item in the treeview:
 
 ~~~Ruby
 <Model>Tree.refresh
-<Model>Tree.refresh_item(<id>, <legend>)
 <Model>Tree.create_item(<id>, <legend>)
-<Model>Tree.del_item(<id>)
+<Model>Tree.destroy_item(<id>)
+<Model>Tree.update_item(<id>, <legend>)
 ~~~
 
 ## Usage
@@ -112,7 +110,7 @@ into your own _app/javascript/controllers/_ directory.
 This software has been developed and tested with:
 - Ubuntu 24.04
 - Ruby 3.4.7
-- Rails 8.1.0
+- Rails 8.1.1
 
 See also:
 - ./.github/workflows/rake.yml

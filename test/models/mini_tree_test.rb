@@ -1,47 +1,52 @@
 require "test_helper"
 
 class MiniTreeTest < ActiveSupport::TestCase
+  let(:leaf) { a_leaf }
+
   def setup
-    @leaf = a_leaf
+    leaf.save # write to dabase
   end
 
-  test "@leaf" do
-    assert_kind_of NameTree, @leaf
-    assert_match(/legend/, @leaf.legend)
-    assert_equal "leaf", @leaf.kind
-    assert_equal 0, @leaf.parent_id
-    assert_equal @leaf.id, @leaf.position
-    refute @leaf.collapsed
+  test "leaf" do
+    assert_kind_of NameTree, leaf
+    assert_match(/legend/, leaf.legend)
+    assert_equal "leaf", leaf.kind
+    assert_equal 0, leaf.parent_id
+    assert_equal leaf.id, leaf.position
+    refute leaf.collapsed
   end
 
   test "create_item" do
-    NameTree.create_item(2, "Legend")
-
-    assert_equal 2, NameTree.count
+    assert_difference("NameTree.count") {
+      NameTree.create_item(2, "Legend")
+    }
   end
 
-  test "del_item" do
-    NameTree.del_item(@leaf.id)
-    assert_equal 0, NameTree.count
+  test "destroy_item" do
+    assert_difference("NameTree.count", -1) {
+      NameTree.destroy_item(leaf.id)
+    }
   end
 
-  test "refresh_item" do
+  test "update_item" do
     new_legend = "New"
     refute_equal new_legend, NameTree.last.legend
 
-    NameTree.refresh_item(@leaf.id, new_legend)
+    NameTree.update_item(leaf.id, new_legend)
     assert_equal new_legend, NameTree.last.legend
   end
 
   test "to_s" do
-    assert_kind_of String, @leaf.to_s
+    assert_kind_of String, leaf.to_s
   end
 
   test "print" do
+    legend = leaf.legend
     out, err = capture_io { NameTree.print }
+
     assert_empty err
     assert_match(/ NameTree.all /, out)
-    assert_match(/#{@name}/, out)
+    assert_match(/#{legend}/, out)
   end
 
   test "flat" do

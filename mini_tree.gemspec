@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.homepage = "https://github.com/matique/mini_tree"
   s.license = "MIT"
 
+  # s.files = Dir["{app,lib}/**/*", "MIT-LICENSE", "README.md"] ???
   s.files = Dir.chdir(File.expand_path(__dir__)) do
     Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "README.md"]
   end

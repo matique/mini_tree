@@ -24,26 +24,33 @@ module MiniTree::Utils
         missing_cnt += 1
       }
       (ids - owner_ids).each { |id|
-        del_item(id)
+        destroy_item(id)
         delete_cnt += 1
       }
       (owner_ids & ids).each { |id|
-        refresh_item(id, owner_class.find_by(id:).legend)
+        update_item(id, owner_class.find_by(id:).legend)
         refresh_cnt += 1
       }
       [missing_cnt, delete_cnt, refresh_cnt]
-    end
-
-    def refresh_item(id, legend)
-      find_by(id:).update!(legend:)
     end
 
     def create_item(id, legend)
       create! id:, legend:, parent_id: 0, position: id, kind: "leaf"
     end
 
-    def del_item(id)
+    def destroy_item(id)
       where(id:).delete_all
+    end
+
+    def update_item(id, legend)
+      find_by(id:).update!(legend:)
+    end
+
+    def ancestors(id)
+      parent_id = find(id).parent_id
+      return [id] if parent_id == 0
+
+      ancestors(parent_id) << id
     end
 
     # used by tests
