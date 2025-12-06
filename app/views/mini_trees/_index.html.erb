@@ -4,6 +4,14 @@
     list-style: none;
     xpadding-left: 1rem;
   }
+  span.title.topline {
+    border-top: solid 2px red;
+    border-top: solid 1px red;
+  }
+  span.title.bottomline {
+    border-bottom: solid 2px red;
+    border-bottom: solid 1px red;
+  }
   .nested {
     padding-left: 1rem;
   }
@@ -27,6 +35,7 @@
   owner = list.first.class.name[0..-5]
 %>
 <div class="mini-tree" data-item-id="0"
+    data-turbo-prefetch="false"
     data-controller="tree" data-tree-owner-value="<%= owner %>">
   <ul class="mini-tree-view" data-tree-target="top">
     <%= render partial: "mini_trees/item",

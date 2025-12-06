@@ -20,7 +20,6 @@ export default class extends Controller {
   dragStart(e, el) {
     e.stopPropagation()
 
-    // ev.dataTransfer.setData("text/plain", "")
     this.dragged = el
     e.dataTransfer.effectAllowed = "move"
     el.classList.add("dragging")
@@ -30,10 +29,35 @@ export default class extends Controller {
     e.stopPropagation()
     this.dragged.classList.remove("dragging")
     this.dragged = null
+    this.removeTraversed()
   }
 
   dragOver(e, el) {
     e.preventDefault()
+    e.stopPropagation()
+    this.removeTraversed()
+
+    const title = el.querySelector("span.title")
+    if (this.topPart(e, el)) {
+      title.classList.add("topline")
+    } else {
+      title.classList.add("bottomline")
+    }
+    this.traversed = title
+  }
+
+  removeTraversed() {
+    if (!this.traversed) { return }
+
+    this.traversed.classList.remove("topline")
+    this.traversed.classList.remove("bottomline")
+    this.traversed = null
+  }
+
+  topPart(event, elem) {
+    const rect = elem.getBoundingClientRect()
+    const offset = event.clientY - rect.top
+    return offset < (rect.height / 3) * 2
   }
 
   drop(e) {
@@ -60,11 +84,7 @@ export default class extends Controller {
       }
     }
 
-    const rect = target.getBoundingClientRect()
-    const offset = e.clientY - rect.top
-    const threshold = (rect.height / 3) * 2
-
-    const target2 = (offset > threshold) ? target.nextSibling : target
+    const target2 = this.topPart(e, target) ? target : target.nextSibling
     target.parentNode.insertBefore(dragged, target2)
   }
 
@@ -97,6 +117,7 @@ export default class extends Controller {
     const newRow = this.create("a", {className: "toggle-btn",
       textContent: this.expanded})
     //  type: "button", textContent: this.expanded})
+    newRow.dataset.action = "click->tree#toggle"
 
     this.removeUl(elem)
     const ulRow2 = this.create("ul", {className: "nested"})
@@ -213,41 +234,11 @@ export default class extends Controller {
   }
 }
 
-
-
-//  over(e, el) {
-//console.log("over")
-//    e.preventDefault()
-//    if (this.dragged === el) return
-//    const rect = el.getBoundingClientRect()
-//    const offset = e.clientY - rect.top
-//    const third = rect.height / 3
-//
-//    if (offset < third) {
-//      el.parentNode.insertBefore(this.placeholder, el)
-//    } else if (offset > 2 * third) {
-//      el.parentNode.insertBefore(this.placeholder, el.nextSibling)
-//    } else {
-//      let ul = el.querySelector(".nested")
-//      if (!ul) {
-//        ul = document.createElement("ul")
-//        ul.className = "nested"
-//        el.appendChild(ul)
-//      }
-//      ul.classList.remove("hidden")
-//      ul.appendChild(this.placeholder)
-//    }
-//  }
-//
-//  removePlaceholder() {
-//    this.placeholder?.remove()
-//  }
+// rails javascript no jquery no sortablejs use stimulus sortable treeview
+// expand collapse support
+// nested reordering
 //
 //
-// // rails javascript no jquery no sortablejs use stimulus sortable treeview
-// // expand collapse support
-// // nested reordering
-//
-//
-// // https://wiki.selfhtml.org/wiki/JavaScript/Drag_%26_Drop
-// // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+// https://wiki.selfhtml.org/wiki/JavaScript/Drag_%26_Drop
+// https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+// simple rails 8 program with two javascript classes

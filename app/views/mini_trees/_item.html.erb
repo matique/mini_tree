@@ -5,9 +5,10 @@
 
 <li class="tree-item" data-tree-target="item"
     data-item-id="<%= item.id %>" draggable="true">
-  <div class="tree-row" data-action="click-&gt;tree#toggle">
+  <div class="tree-row">
     <% if item.kind == "node" %>
-      <a class="toggle-btn" type="button"><%= icon %></a>
+      <a class="toggle-btn" type="button"
+        data-action="click-&gt;tree#toggle"> <%= icon %> </a>
     <% else %>
       <span class="toggle-space"></span>
     <% end %>

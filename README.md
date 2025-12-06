@@ -65,7 +65,7 @@ You may specify your view of an item in the treeview:
 ~~~Ruby
 # ./app/views/application/_mini_tree_title.html.erb
 # id and legend are defined
-<%= link_to "action", edit_<model>(id:), class: 'button' %>
+<%= link_to "action", edit_<model>(id:) %>
 <%= legend %>
 ~~~
 
@@ -101,7 +101,7 @@ gem "mini_tree"
 and run "bundle install".
 
 Furthermore, copy manually *app/javascript/controllers/tree_controller.js*
-from the _gem  mini-tree_
+from the _gem  mini_tree_
 into your own _app/javascript/controllers/_ directory.
 
 
