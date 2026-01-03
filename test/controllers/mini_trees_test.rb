@@ -20,7 +20,6 @@ class MiniTreesControllerTest < ActionController::TestCase
       params: {owner: @owner, function: "leaf2node", value: leaf.id},
       session: {}
     assert_equal "node", leaf.reload.kind
-    assert true
   end
 
   test "node2leaf" do
@@ -30,7 +29,6 @@ class MiniTreesControllerTest < ActionController::TestCase
       params: {owner: @owner, function: "node2leaf", value: node.id},
       session: {}
     assert_equal "leaf", node.reload.kind
-    assert true
   end
 
   test "collapsed" do
@@ -46,5 +44,14 @@ class MiniTreesControllerTest < ActionController::TestCase
       params: {owner: @owner, function: "toggle", id: leaf.id, value: false},
       session: {}
     refute leaf.reload.collapsed
+  end
+
+  test "unknown" do
+    node = a_node
+    assert_equal "node", node.kind
+    post :sync,
+      params: {owner: @owner, function: "unknown", value: node.id},
+      session: {}
+    assert_equal "node", node.reload.kind
   end
 end

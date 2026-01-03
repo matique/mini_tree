@@ -5,11 +5,11 @@ gemspec
 group :test do
   gem "benchmark"
   gem "benchmark-ips"
-  gem "byebug", require: false
+  gem "byebug"
   gem "capybara"
   gem "cuco"
   gem "minitest-spec-rails"
-  # gem "ricecream", require: false # fails with combustion?
+  gem "ricecream"
   gem "simplecov", require: false
   gem "spring"
   gem "sqlite3"
