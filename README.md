@@ -129,6 +129,6 @@ If you are curious you may search in particular for:
 
 ## License
 
-Copyright (c) 2025 Dittmar Krall (www.matiq.com),
+Copyright (c) 2025-2026 Dittmar Krall (www.matiq.com),
 released as open source under the terms of the
 [MIT license](https://opensource.org/licenses/MIT).

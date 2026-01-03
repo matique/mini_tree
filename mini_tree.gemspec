@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = Dir["README.md", "MIT-LICENSE"]
 
   s.require_paths = ["lib"]
-  s.required_ruby_version = "> 3"
+  s.required_ruby_version = ">= 3"
 
   s.add_dependency "rails", ">= 8.0.0"
   s.add_dependency "stimulus-rails"

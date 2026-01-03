@@ -8,8 +8,6 @@ jobs:
       fail-fast: false
       matrix:
         ruby_version: [head, "3.4"]
-        gemfile:
-          - Gemfile
     runs-on: ubuntu-latest
 
     steps:

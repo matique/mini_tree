@@ -1,6 +1,5 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in mini_tree.gemspec.
 gemspec
 
 group :test do
